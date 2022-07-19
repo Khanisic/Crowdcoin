@@ -14,16 +14,19 @@ const Home = () => {
   const { getCampaigns, currentAccount, campaignsList, getContributers, getTotalMoney, totalMoney, totalContributers, walletConnected, connectWallet } = useContext(CampaignContext);
   const [isLoading, setIsLoading] = useState(parseInt(1))
 
-  useEffect(  () => {
-       getCampaigns().then(() => {
+  useEffect(  async () => {
+
+       await getCampaigns().then(() => {
         setIsLoading(isLoading++)
       });
-       getContributers().then(() => {
+      await getContributers().then(() => {
         setIsLoading(isLoading++)
       })
-       getTotalMoney().then(() => {
+      await getTotalMoney().then(() => {
         setIsLoading(isLoading++)
       })
+
+
   }, [])
 
   return (
