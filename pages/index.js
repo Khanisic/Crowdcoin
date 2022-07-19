@@ -15,7 +15,6 @@ const Home = () => {
   const [isLoading, setIsLoading] = useState(parseInt(1))
 
   useEffect(  () => {
-    if (walletConnected) {
        getCampaigns().then(() => {
         setIsLoading(isLoading++)
       });
@@ -25,9 +24,7 @@ const Home = () => {
        getTotalMoney().then(() => {
         setIsLoading(isLoading++)
       })
-    }
-
-  }, [walletConnected])
+  }, [])
 
   return (
     <>
