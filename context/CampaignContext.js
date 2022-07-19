@@ -39,7 +39,7 @@ export const CampaignProvider = ({ children }) => {
             if (accounts.length) {
                 setCurrentAccount(accounts[0]);
             } else {
-                console.log('No accounts found');
+                return alert(' Kindly connect your metamask');
             }
             return true;
         } 
