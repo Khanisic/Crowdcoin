@@ -11,7 +11,7 @@ import Link from 'next/link';
 import Transactions from '../components/Transactions';
 
 const Home = () => {
-  const { getCampaigns, currentAccount, campaignsList, getContributers, getTotalMoney, totalMoney, totalContributers, walletConnected } = useContext(CampaignContext);
+  const { getCampaigns, currentAccount, campaignsList, getContributers, getTotalMoney, totalMoney, totalContributers, walletConnected, connectWallet } = useContext(CampaignContext);
   const [isLoading, setIsLoading] = useState(parseInt(1))
 
   useEffect(  () => {
@@ -33,7 +33,7 @@ const Home = () => {
     <>
       <div className={styles.top} >
         <Banner type="main" />
-        <Button type="outline" text={`${currentAccount ? "Connected" : "Connect"}`} color="blue" />
+        <Button onClick={connectWallet} type="outline" text={`${currentAccount ? "Connected" : "Connect"}`} color="blue" />
       </div>
       <div className={styles.kickMain}>
         <div className={styles.kickLeft}>
