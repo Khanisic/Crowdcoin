@@ -1,0 +1,59 @@
+.outline {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    width: 191px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.action{
+    width: auto;
+    cursor: pointer;
+}
+.outlineText {
+    margin: 0;
+    border-radius: 18px;
+    padding: 10px 40px;
+}
+
+.blueOutline {
+    border: 2px solid #013864;
+    color: #013864;
+}
+
+.greenOutline {
+    border: 1px solid #01AFA4;
+    color: #01AFA4;
+}
+.redOutline{
+    border: 1px solid #AF2001;
+    color: #AF2001;
+}
+.greyOutline{
+    border: 1px solid #BDBDBD;
+    color: #BDBDBD;
+}
+.fill {
+    font-family: 'Poppins', sans-serif;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 250px;
+    cursor: pointer;
+    border-radius: 20px;
+}
+
+.fillText {
+    margin: 0;
+    border-radius: 18px;
+    padding: 10px 40px;
+    color: white;
+}
+
+.blueFill {
+    background: linear-gradient(180deg, #013293 0%, #000000 100%);
+}
+
+.greenFill {
+    background: linear-gradient(180deg, #01AFA4 0%, #000000 100%);
+}

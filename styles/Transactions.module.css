@@ -1,0 +1,51 @@
+.mainOuter{
+    padding: 0 15px;
+}
+.mainInner{
+    background: #FFFFFF;
+    box-shadow: 0px 2px 7px #01AFA4;
+    border-radius: 20px;
+    padding: 10px 25px;
+}
+.mainInnerHeading{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 15px;
+}
+.transactions{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+.transactionsBox{
+    background: #FFFFFF;
+box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.1);
+border-radius: 20px;
+display: flex;
+justify-content: space-between;
+}
+.transactionsText{
+    padding: 0px 20px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #000000;
+    margin: 4px 0;
+}
+.mainInnerHeading>p{
+    margin: 10px 0;
+}
+.footer{
+    background: linear-gradient(90deg, #013293 -1.27%, #01AFA4 100%);
+    width: 100%;
+    color: white;
+    font-family: 'IBM Plex Mono';
+    font-style: normal;
+    text-align: center;
+    padding: 10px 0;
+    position: absolute;
+    bottom: 0;
+}

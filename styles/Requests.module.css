@@ -1,0 +1,45 @@
+.requestOuter{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-top: 2rem;
+}
+.circle{
+    background: #01AFA4;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color: white;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+}
+.requests{
+    display: flex;
+    align-items: baseline;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0px 1rem;
+    border-bottom: 2px solid #01AFA4;
+    padding-bottom: 20px;
+}
+.requestNo{
+    flex-grow: 0.2;
+}
+.requestAddress{
+    flex-grow: 0.5;
+}
+.title{
+    flex-grow: 3;
+}
+.requestAction{
+    flex-grow: 1;
+    display: flex;
+    text-align: center;
+    gap: 15px;
+}
