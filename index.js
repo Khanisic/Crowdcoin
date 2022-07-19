@@ -33,7 +33,7 @@ const Home = () => {
     <>
       <div className={styles.top} >
         <Banner type="main" />
-        <Button onClick={connectWallet} type="outline" text={`${currentAccount ? "Connected" : "Connect"}`} color="blue" />
+        <Button onClick={connectWallet} type="outline" text={`${currentAccount ? "Connected" : "Connect wallet"}`} color="blue" />
       </div>
       <div className={styles.kickMain}>
         <div className={styles.kickLeft}>
