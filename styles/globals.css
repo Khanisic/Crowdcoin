@@ -1,16 +1,16 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+body{
+    margin: 0;
 }
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-* {
-  box-sizing: border-box;
+.footer{
+    background: linear-gradient(90deg, #013293 -1.27%, #01AFA4 100%);
+    width: 100%;
+    color: white;
+    font-family: 'IBM Plex Mono';
+    font-style: normal;
+    text-align: center;
+    padding: 10px 0;
+    margin: 0;
+    margin-top: 4rem;
+    position: absolute;
+    bottom: 0;
 }

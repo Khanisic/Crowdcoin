@@ -1,5 +1,6 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
+.secret
+.goerliUrl
 # dependencies
 /node_modules
 /.pnp
@@ -30,3 +31,13 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+node_modules
+.env
+coverage
+coverage.json
+typechain
+
+#Hardhat files
+cache
+artifacts
