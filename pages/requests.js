@@ -21,6 +21,7 @@ function Requests() {
     const [contribution, setContribution] = useState('')
     const [loaderText, setLoaderText] = useState("")
     const [loading, setLoading] = useState(false)
+    const [approvers, setApprovers] = useState('')
 
     useEffect(async () => {
         if (!router.isReady) return;
@@ -32,6 +33,8 @@ function Requests() {
         if (manager.toLocaleLowerCase() == currentAccount) {
             setIsManager(true);
         }
+        if (!currentAccount) return
+            setApprovers(router.query.approvers);
     }, [router.isReady, currentAccount])
 
     if (isLoading) return (
@@ -74,11 +77,11 @@ function Requests() {
                                 <div className={styles.requestAddress}><Box topText="To:" bottomText={request.recipient} /></div>
                                 <div className={styles.title}><Box topText="Funds Required:" bottomText={ethers.utils.formatUnits(request.value._hex.toString(), 'wei')} /></div>
                                 <div className={styles.title}><Box topText="Title:" bottomText={request.description} /></div>
-                                <div className={styles.title}><Box topText="No. of approvers" bottomText={ethers.utils.formatUnits(request.approvalCount._hex.toString(), 'wei')} /></div>
+                                <div className={styles.title}><Box topText="No. of approvers" bottomText={`${ethers.utils.formatUnits(request.approvalCount._hex.toString(), 'wei')} / ${approvers}`} /></div>
                                 <div className={styles.requestAction}>
 
                                     {
-                                        !request.complete && isManager &&
+                                        ethers.utils.formatUnits(request.approvalCount._hex.toString(), 'wei') > approvers / 2  && !request.complete && isManager &&
                                         <Button onClick={(e) => { finalizeRequest(e, address, index) }} text="Finalise request" type="outline" color="red" action />
                                     }
                                     {

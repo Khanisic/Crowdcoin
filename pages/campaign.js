@@ -57,7 +57,7 @@ const campaign = () => {
         <div className={styles.detailsRight}>
           <div className={styles.boxButton}>
             <Box topText="Minimum contribution" bottomText={`${router.query.minimumContribution}` + ` Wei`} />
-            <Link href={{ pathname: '/requests', query: { address : address, manager : campaignDetails.managersAddress } }}>
+            <Link href={{ pathname: '/requests', query: { address : address, manager : campaignDetails.managersAddress, approvers : campaignDetails.approvers } }}>
               <Button type="fill" text="View requests" color="green" />
             </Link>
           </div>
