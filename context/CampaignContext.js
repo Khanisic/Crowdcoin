@@ -34,7 +34,7 @@ export const CampaignProvider = ({ children }) => {
             const accounts = await window.ethereum.request({ method: 'eth_accounts' });
             const networkVersion = window.ethereum.networkVersion;
 
-            if( networkVersion != 5 ) return alert(' Kindly connect to goerli test network');
+            if (networkVersion != 5) return alert(' Kindly connect to goerli test network');
 
             if (accounts.length) {
                 setCurrentAccount(accounts[0]);
@@ -42,31 +42,40 @@ export const CampaignProvider = ({ children }) => {
                 return alert(' Kindly connect your metamask');
             }
             return true;
-        } 
+        }
         catch (error) {
             return false;
         }
 
     };
 
-    const createCampaign = async (e, amount, title) => {
+    const createCampaign = async (e, amount, title, setIsLoading, setLoaderText) => {
+        setIsLoading(true);
+        setLoaderText("Getting confirmation from Metamask")
         e.preventDefault();
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const signer = provider.getSigner();
+        try {
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            const signer = provider.getSigner();
 
-        const contract = new ethers.Contract(
-            MarketAddress,
-            CampaignFactoryABI,
-            signer
-        );
+            const contract = new ethers.Contract(
+                MarketAddress,
+                CampaignFactoryABI,
+                signer
+            );
 
-
-        const create = await contract.createCampaign(
-            parseInt(amount),
-            title,
-        );
-
-        await create.wait();
+            const create = await contract.createCampaign(
+                parseInt(amount),
+                title,
+            );
+            setLoaderText("Waiting for transaction to  complete")
+            await create.wait();
+            setIsLoading(false);
+            setLoaderText(null)
+            router.push('/');
+        } catch (error) {
+            setLoaderText("User denied transaction signature")
+            setIsLoading(false);
+        }
 
     }
 
@@ -93,12 +102,11 @@ export const CampaignProvider = ({ children }) => {
 
 
     const getCampaigns = async () => {
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const signer = provider.getSigner();
+        const provider = new ethers.providers.AlchemyProvider('goerli', 'qZz8MvOW7-08qEpCLL-yISEDnp8yv3vP');
         const contract = new ethers.Contract(
             MarketAddress,
             CampaignFactoryABI,
-            signer
+            provider
         );
 
         const listOfCampaigns = await contract.getDeployedCampaigns();
@@ -132,20 +140,36 @@ export const CampaignProvider = ({ children }) => {
 
     }
 
-    const contributeToCampaign = async (campaignAddress, amount) => {
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const signer = provider.getSigner();
+    const contributeToCampaign = async (campaignAddress, amount, setLoading, setLoaderText) => {
+        setLoading(true)
+        setLoaderText("Getting confirmation from Metamask")
+        try {
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            const signer = provider.getSigner();
 
-        const contract = new ethers.Contract(
-            campaignAddress,
-            CampaignAbi,
-            signer
-        );
+            const contract = new ethers.Contract(
+                campaignAddress,
+                CampaignAbi,
+                signer
+            );
 
-        // const price = ethers.utils.parseUnits(amount.toString(), 'ether');
 
-        const transaction = await contract.contribute({ value: amount });
-        await transaction.wait();
+            const transaction = await contract.contribute({ value: amount });
+            setLoaderText("Waiting for transaction to  complete")
+            await transaction.wait();
+            setLoaderText("Transaction Completed")
+            setLoading(false)
+        } catch (error) {
+            console.log(error.code)
+            if (error.code == 'UNPREDICTABLE_GAS_LIMIT') {
+                setLoaderText("Please contribute the minimum amount")
+            }
+            else {
+                setLoaderText("User denied signature")
+            }
+            setLoading(false)
+        }
+
     }
 
     const getRequests = async (campaignAddress) => {
@@ -199,18 +223,35 @@ export const CampaignProvider = ({ children }) => {
         const contributers = await contract.getNoOfContributers();
         setTotalContributers(contributers)
     }
-    const approveRequest = async (e, campaignAddress, index) => {
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const signer = provider.getSigner();
+    const approveRequest = async (e, campaignAddress, index, setLoading, setLoaderText) => {
+        setLoading(true)
+        setLoaderText("Getting confirmation from Metamask")
+        try {
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            const signer = provider.getSigner();
 
-        const contract = new ethers.Contract(
-            campaignAddress,
-            CampaignAbi,
-            signer
-        );
+            const contract = new ethers.Contract(
+                campaignAddress,
+                CampaignAbi,
+                signer
+            );
 
-        const transaction = await contract.approveRequest(index);
-        await transaction.wait();
+            const transaction = await contract.approveRequest(index);
+            setLoaderText("Waiting for transaction to  complete")
+            await transaction.wait();
+            setLoaderText("Transaction Completed")
+            setLoading(false)
+        } catch (error) {
+            console.log(error.code)
+            if (error.code == 'UNPREDICTABLE_GAS_LIMIT') {
+                setLoaderText("Please contribute the minimum amount")
+            }
+            else {
+                setLoaderText("User denied signature")
+            }
+            setLoading(false)
+        }
+
     }
     const finalizeRequest = async (e, campaignAddress, index) => {
         const provider = new ethers.providers.Web3Provider(window.ethereum);
