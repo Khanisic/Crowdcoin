@@ -19,11 +19,9 @@ const campaign = () => {
   const [loading, setLoading] = useState(false)
   var address = router.query.address;
   useEffect(async () => {
-    if (walletConnected) {
       await getThisCampaignsDetails(address).then(() => {
         setIsLoading(false);
       })
-    }
   }, [walletConnected, address])
 
 
@@ -43,6 +41,10 @@ const campaign = () => {
 
       <div className={homeStyles.top}>
         <Banner type="outline" />
+
+      </div>
+      <div className={styles.detailsMain}>
+        <Button type="outline" text="Back" onClick={()=>{router.back()}}/>
       </div>
       <div className={styles.detailsMain}>
 

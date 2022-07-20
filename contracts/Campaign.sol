@@ -37,7 +37,7 @@ contract Campaign {
         uint approvalCount;
     }
 
-    RecordInterface recordInstance = RecordInterface(0x80aBA548BA9Fa88eCA825Cb7F8D188a4449e7443);
+    RecordInterface recordInstance = RecordInterface(0xB99389834E87902da1b577B8d2b080a1561F499F);
 
     mapping(address => mapping(uint => bool)) approvals;
 

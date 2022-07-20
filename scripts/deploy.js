@@ -1,15 +1,15 @@
 const hre = require('hardhat');
 
 async function main() {
-   const CampaignFactory = await hre.ethers.getContractFactory('CampaignFactory');
+    const CampaignFactory = await hre.ethers.getContractFactory('CampaignFactory');
    const campaignFactory = await CampaignFactory.deploy();
  // const CoinRecord = await hre.ethers.getContractFactory('CoinRecord');
- // const coinRecord = await CoinRecord.deploy();
-  await campaignFactory.deployed();
+  //const coinRecord = await CoinRecord.deploy();
+   await campaignFactory.deployed();
 //  await coinRecord.deployed();
 
   console.log('Market deployed to:', campaignFactory.address);
-  // console.log('Records deployed to:', coinRecord.address);
+  //  console.log('Records deployed to:', coinRecord.address);
 }
 
 main()

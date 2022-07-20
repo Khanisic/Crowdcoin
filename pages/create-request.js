@@ -10,35 +10,36 @@ import homeStyles from '../styles/Home.module.css'
 function CreateRequest() {
     const router = useRouter();
     const [funds, setFunds] = useState('');
-    const [title , setTitle] = useState('');
-    const [recepient , setRecepient] = useState('');
+    const [title, setTitle] = useState('');
+    const [recepient, setRecepient] = useState('');
     const { createRequest } = useContext(CampaignContext);
     const [loaderText, setLoaderText] = useState("")
     const [isLoading, setIsLoading] = useState(false)
     var address = router.query.address;
-  return (
-    <>
+    return (
+        <>
             <div className={homeStyles.top}>
                 <Banner type="outline" />
             </div>
             <div className={homeStyles.formOuter}>
-                <Box  setFormField={setRecepient} topText="Enter recepient’s address" input  description bottomText="" placeholder="Address of recepient" />
+                <Box setFormField={setRecepient} topText="Enter recepient’s address" input description bottomText="" placeholder="Address of recepient" />
                 <Box setFormField={setTitle} topText="Enter request name" input description bottomText="" placeholder="Name of the request" />
-                <Box  setFormField={setFunds} topText="Enter funds required" input  bottomText="" placeholder="Funds in ether" />
+                <Box setFormField={setFunds} topText="Enter funds required" input bottomText="" placeholder="Funds in ether" />
             </div>
             <div className={homeStyles.leftTop}>
-                <Button onClick={(e)=>{ createRequest(e, recepient, title, funds, address, setIsLoading, setLoaderText )}} type="fill" text="Create request" color="blue" />
+                <Button type="outline" text="Back" onClick={() => { router.back() }} />
+                <Button onClick={(e) => { createRequest(e, recepient, title, funds, address, setIsLoading, setLoaderText) }} type="fill" text="Create request" color="blue" />
             </div>
 
             {
-                ( loaderText || isLoading ) &&
+                (loaderText || isLoading) &&
 
                 <Loader loading={isLoading} loaderType="loaderWithText" text={loaderText} />
             }
 
 
         </>
-  )
+    )
 }
 
 export default CreateRequest

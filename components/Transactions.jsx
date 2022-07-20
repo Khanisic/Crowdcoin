@@ -40,7 +40,7 @@ function Transactions() {
                     {
                     !transactions.length > 0 &&
                     <div>
-                       <Loader color="blue"/>
+                       <Loader loaderType="loaderOnly"/>
                     </div>
                     }
 

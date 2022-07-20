@@ -28,10 +28,11 @@ function Requests() {
             await getRequests(address);
             setIsLoading(false);
         }
-        if( manager.toLocaleLowerCase() == currentAccount ){
+        if (!currentAccount) return
+        if (manager.toLocaleLowerCase() == currentAccount) {
             setIsManager(true);
         }
-    }, [router.isReady])
+    }, [router.isReady, currentAccount])
 
     if (isLoading) return (
         <>
@@ -58,6 +59,7 @@ function Requests() {
                 <Banner type="outline" />
             </div>
             <div className={homeStyles.leftTop}>
+                <Button type="outline" text="Back" onClick={() => { router.back() }} />
                 <Link href={{ pathname: '/create-request', query: { address } }}>
                     <Button type="fill" text="Create request" color="green" />
                 </Link>

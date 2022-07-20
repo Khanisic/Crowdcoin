@@ -103,10 +103,10 @@ export const CampaignProvider = ({ children }) => {
             parseInt(value),
             recepient
         );
+        await create.wait();  
         setIsLoading(false);
         setLoaderText(null)
         router.back();
-        await create.wait();  
         } catch (error) {
             console.log(error.code)
             if (error.code == 'UNPREDICTABLE_GAS_LIMIT') {
@@ -179,10 +179,13 @@ export const CampaignProvider = ({ children }) => {
 
 
             const transaction = await contract.contribute({ value: amount });
+
+            
             setLoaderText("Waiting for transaction to  complete")
             await transaction.wait();
             setLoaderText("Transaction Completed")
             setLoading(false)
+            window.location.reload();
         } catch (error) {
             console.log(error.code)
             if (error.code == 'UNPREDICTABLE_GAS_LIMIT') {
