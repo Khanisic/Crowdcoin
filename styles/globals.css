@@ -1,5 +1,6 @@
 body{
     margin: 0;
+    margin-bottom: 6rem;
 }
 .footer{
     background: linear-gradient(90deg, #013293 -1.27%, #01AFA4 100%);
