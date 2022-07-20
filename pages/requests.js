@@ -69,7 +69,7 @@ function Requests() {
             </div>
 
             {
-                listOfRequests.map((request, index) => {
+                approvers && listOfRequests.map((request, index) => {
                     return (
                         <div className={styles.requestOuter}>
                             <div className={styles.requests}>
