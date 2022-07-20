@@ -14,20 +14,20 @@ const Home = () => {
   const { getCampaigns, currentAccount, campaignsList, getContributers, getTotalMoney, totalMoney, totalContributers, walletConnected, connectWallet } = useContext(CampaignContext);
   const [isLoading, setIsLoading] = useState(parseInt(1))
 
-  useEffect(  () => {
-    if (walletConnected) {
-       getCampaigns().then(() => {
+  useEffect(  async () => {
+
+       await getCampaigns().then(() => {
         setIsLoading(isLoading++)
       });
-       getContributers().then(() => {
+      await getContributers().then(() => {
         setIsLoading(isLoading++)
       })
-       getTotalMoney().then(() => {
+      await getTotalMoney().then(() => {
         setIsLoading(isLoading++)
       })
-    }
 
-  }, [walletConnected])
+
+  }, [])
 
   return (
     <>
@@ -50,7 +50,7 @@ const Home = () => {
       <div className={styles.statsOuter}>
         {
           isLoading != 3 && isLoading <= 3 ?
-            <Loader color="blue" />
+            <Loader loaderType="loaderOnly" />
             :
             <>
               <Box topText="No. of Campaigns" bottomText={campaignsList.length} />
@@ -70,7 +70,7 @@ const Home = () => {
       <div className={styles.projects}>
         {
           isLoading != 3 && isLoading < 3 &&
-          <Loader color="blue" />
+          <Loader loaderType="loaderOnly" />
         }
         {
 

@@ -15,14 +15,16 @@ const campaign = () => {
   const [isLoading, setIsLoading] = useState(true)
   const { campaignDetails, getThisCampaignsDetails, contributeToCampaign, walletConnected } = useContext(CampaignContext);
   const [contribution, setContribution] = useState('')
+  const [loaderText, setLoaderText] = useState("")
+  const [loading, setLoading] = useState(false)
   var address = router.query.address;
   useEffect(async () => {
-    if( walletConnected ){
+    if (walletConnected) {
       await getThisCampaignsDetails(address).then(() => {
         setIsLoading(false);
       })
     }
-  }, [walletConnected,address])
+  }, [walletConnected, address])
 
 
   if (isLoading) return (
@@ -30,7 +32,7 @@ const campaign = () => {
       <div className={homeStyles.top}>
         <Banner type="outline" />
       </div>
-      <Loader color='blue' />
+      <Loader loaderType="loaderOnly" />
     </>
 
   )
@@ -53,7 +55,7 @@ const campaign = () => {
         <div className={styles.detailsRight}>
           <div className={styles.boxButton}>
             <Box topText="Minimum contribution" bottomText={`${router.query.minimumContribution}` + ` Wei`} />
-            <Link href={{ pathname:'/requests', query: {address} }}>
+            <Link href={{ pathname: '/requests', query: { address : address, manager : campaignDetails.managersAddress } }}>
               <Button type="fill" text="View requests" color="green" />
             </Link>
           </div>
@@ -68,8 +70,12 @@ const campaign = () => {
       </div>
       <div className={homeStyles.leftTop}>
         <Box setFormField={setContribution} input placeholder="Contribution in wei" contribute topText="Enter amount to contribute" bottomText="" />
-        <Button onClick={(e) => { contributeToCampaign(address, contribution) }} text="Contribute" type="outline" color="blue" />
+        <Button onClick={(e) => { contributeToCampaign(address, contribution, setLoading, setLoaderText) }} text="Contribute" type="outline" color="blue" />
       </div>
+      {
+        ( loaderText || loading ) &&
+        <Loader loaderType="loaderWithText" loading={loading} text={loaderText} />
+      }
     </>
   )
 }
