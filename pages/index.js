@@ -76,9 +76,9 @@ const Home = () => {
 
           isLoading >= 3 &&
 
-          campaignsList.map((campaign) => {
+          campaignsList.map((campaign, index) => {
             return (
-              <Projects query={campaign} title={campaign.name} address={campaign.addressOfNewCampaign} minimumContribution={ethers.utils.formatUnits(campaignsList[0].minimumContribution._hex.toString(), 'wei')} />
+              <Projects query={campaign} title={campaign.name} address={campaign.addressOfNewCampaign} minimumContribution={ethers.utils.formatUnits(campaignsList[index].minimumContribution._hex.toString(), 'wei')} />
             )
           })
 
