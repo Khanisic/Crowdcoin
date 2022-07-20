@@ -73,14 +73,22 @@ export const CampaignProvider = ({ children }) => {
             setLoaderText(null)
             router.push('/');
         } catch (error) {
-            setLoaderText("User denied transaction signature")
+            if ( error.code == 'INVALID_ARGUMENT'){
+                setLoaderText("Enter all the fields")
+            }
+            else{
+                setLoaderText("User denied transaction signature")
+            }
             setIsLoading(false);
         }
 
     }
 
-    const createRequest = async (e, recepient, description, value, campaignAddress) => {
+    const createRequest = async (e, recepient, description, value, campaignAddress, setIsLoading, setLoaderText) => {
         e.preventDefault();
+        setIsLoading(true);
+        setLoaderText("Getting confirmation from Metamask")
+        try {
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         const signer = provider.getSigner();
 
@@ -89,14 +97,30 @@ export const CampaignProvider = ({ children }) => {
             CampaignAbi,
             signer
         );
-
+        setLoaderText("Waiting for transaction to  complete")
         const create = await contract.createRequest(
             description,
             parseInt(value),
             recepient
         );
-
-        await create.wait();
+        setIsLoading(false);
+        setLoaderText(null)
+        router.back();
+        await create.wait();  
+        } catch (error) {
+            console.log(error.code)
+            if (error.code == 'UNPREDICTABLE_GAS_LIMIT') {
+                setLoaderText("You are not the manager")
+            }
+            else if ( error.code == 'INVALID_ARGUMENT'){
+                setLoaderText("Enter all the fields correctly")
+            }
+            else {
+                setLoaderText("User denied signature")
+            }
+            setIsLoading(false)
+        }
+        
 
     }
 
@@ -241,6 +265,7 @@ export const CampaignProvider = ({ children }) => {
             await transaction.wait();
             setLoaderText("Transaction Completed")
             setLoading(false)
+            router.reload();
         } catch (error) {
             console.log(error.code)
             if (error.code == 'UNPREDICTABLE_GAS_LIMIT') {
@@ -265,6 +290,7 @@ export const CampaignProvider = ({ children }) => {
 
         const transaction = await contract.finalizeRequest(index);
         await transaction.wait();
+        router.reload()
     }
 
     useEffect(async () => {

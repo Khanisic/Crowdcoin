@@ -3,6 +3,7 @@ import React, { useContext, useState } from 'react'
 import Banner from '../components/Banner'
 import Box from '../components/Box'
 import Button from '../components/Button'
+import Loader from '../components/Loader'
 import { CampaignContext } from '../context/CampaignContext'
 import homeStyles from '../styles/Home.module.css'
 
@@ -12,6 +13,8 @@ function CreateRequest() {
     const [title , setTitle] = useState('');
     const [recepient , setRecepient] = useState('');
     const { createRequest } = useContext(CampaignContext);
+    const [loaderText, setLoaderText] = useState("")
+    const [isLoading, setIsLoading] = useState(false)
     var address = router.query.address;
   return (
     <>
@@ -24,10 +27,14 @@ function CreateRequest() {
                 <Box  setFormField={setFunds} topText="Enter funds required" input  bottomText="" placeholder="Funds in ether" />
             </div>
             <div className={homeStyles.leftTop}>
-                <Button onClick={(e)=>{ createRequest(e, recepient, title, funds, address )}} type="fill" text="Create request" color="blue" />
+                <Button onClick={(e)=>{ createRequest(e, recepient, title, funds, address, setIsLoading, setLoaderText )}} type="fill" text="Create request" color="blue" />
             </div>
 
-            
+            {
+                ( loaderText || isLoading ) &&
+
+                <Loader loading={isLoading} loaderType="loaderWithText" text={loaderText} />
+            }
 
 
         </>
